@@ -13,7 +13,6 @@ def post_list(request, category=None):
 # not in use
 def post_list(request, category=None):
     object_list = Post.published.all()
-    print object_list
     paginator = Paginator(object_list, 3) # 3 posts in each page
     page = request.GET.get('page')
     try:
@@ -24,8 +23,7 @@ def post_list(request, category=None):
     except EmptyPage:
         # If page is out of range deliver last page of results
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'blog/post/list.html', {'page': page,
-                                                   'posts': posts})
+    return render(request, 'blog/post/list.html', {'posts': posts})
 
 # selected page passed in to template as page_obj
 class PostListView(ListView):
