@@ -10,6 +10,7 @@ def post_list(request, category=None):
     return render(request, 'blog/post/list.html', {'posts': posts})
 """
 
+# not in use
 def post_list(request, category=None):
     object_list = Post.published.all()
     print object_list
@@ -25,6 +26,14 @@ def post_list(request, category=None):
         posts = paginator.page(paginator.num_pages)
     return render(request, 'blog/post/list.html', {'page': page,
                                                    'posts': posts})
+
+# selected page passed in to template as page_obj
+class PostListView(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    paginate_by = 3
+    template_name = 'blog/post/list.html'
+
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
