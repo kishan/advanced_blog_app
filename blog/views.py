@@ -64,6 +64,7 @@ def post_detail(request, year, month, day, post):
             # Save the comment to the database
             new_comment.save()
     else:
+        new_comment = False
         comment_form = CommentForm()
 
     # List of similar posts
@@ -75,6 +76,7 @@ def post_detail(request, year, month, day, post):
     return render(request, 'blog/post/detail.html', {'post': post,
                                                      'comments': comments,
                                                      'comment_form': comment_form,
+                                                     'new_comment':new_comment,
                                                      'similar_posts': similar_posts})
 
 
